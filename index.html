@@ -74,30 +74,16 @@
         </div>
         
       <!-- Featured Cards Auto Slider -->
+<!-- Featured Cards Auto Slider -->
 <div class="relative max-w-md mx-auto mb-12 overflow-hidden rounded-lg shadow-2xl">
-  <div id="autoSlider" class="flex transition-transform duration-700 ease-in-out">
-    <img src="https://images.pokemontcg.io/swsh4/131_hires.png" alt="Carte spéciale 1" class="w-full flex-shrink-0">
-    <img src="https://images.pokemontcg.io/swsh12pt5/35_hires.png" alt="Carte spéciale 2" class="w-full flex-shrink-0">
-    <img src="https://images.pokemontcg.io/swsh7/180_hires.png" alt="Carte spéciale 3" class="w-full flex-shrink-0">
-    <img src="https://images.pokemontcg.io/swsh6/200_hires.png" alt="Carte spéciale 4" class="w-full flex-shrink-0">
-  </div>
+  <div id="autoSlider" class="flex transition-transform duration-700 ease-in-out"></div>
 </div>
 
-<script>
-  const slider = document.getElementById("autoSlider");
-  const slides = slider.children.length;
-  let index = 0;
-
-  setInterval(() => {
-    index = (index + 1) % slides;
-    slider.style.transform = `translateX(-${index * 100}%)`;
-  }, 2500); // chaque 2.5 secondes
-</script>
 
         <a href="market.html" class="bg-blue-600 text-white px-12 py-5 rounded-lg text-xl font-bold hover:bg-blue-700 inline-block transform hover:scale-105 transition-all shadow-lg">
             Start your collection
         </a>
-    </section>
+
 
 
     <!-- Footer -->

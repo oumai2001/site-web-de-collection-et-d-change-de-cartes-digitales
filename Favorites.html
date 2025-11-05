@@ -48,35 +48,12 @@
         </div>
     </nav>
 <section class="container mx-auto px-4 py-8">
-    <!-- Filters -->
-    <div class="flex gap-4 mb-8 flex-wrap justify-center">
-        <button class="bg-orange-500 text-white px-6 py-3 rounded-full font-bold hover:bg-orange-600">Mythic</button>
-        <button class="bg-red-600 text-white px-6 py-3 rounded-full font-bold hover:bg-red-700">Legendar</button>
-        <button class="bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700">Epic</button>
-        <button class="bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600">RARE</button>
-        <button class="bg-gray-500 text-white px-6 py-3 rounded-full font-bold hover:bg-gray-600">COMMON</button>
-    </div>
-    
-    <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12" id="cards-container">
-        <!-- Card Example (repeat 9 times) -->
-        <div class="text-center">
-            <img src="https://images.pokemontcg.io/swsh4/131_hires.png" alt="Card" class="w-full max-w-sm mx-auto rounded-lg shadow-lg mb-4">
-            <div class="flex gap-4 justify-center">
-                <button class="bg-red-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-red-700">remove</button>
-                <button class="bg-green-500 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-600">add to cart</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Pagination -->
-    <div class="flex gap-4 justify-center">
-        <button class="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-500">&lt;&lt;</button>
-        <button class="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-500">1</button>
-        <button class="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-500">2</button>
-        <button class="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-500">&gt;&gt;</button>
-    </div>
+  <div id="favorites-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+  <p id="no-favorites" class="text-white text-center text-xl mt-8 hidden">
+    Vous n'avez pas encore ajouté de cartes favorites.
+  </p>
 </section>
+
  <footer class="bg-transparent mt-16 border-t border-purple-800">
   <div class="container mx-auto px-4 py-12">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
