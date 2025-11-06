@@ -127,15 +127,15 @@ function displayFavorites() {
       </div>
     `;
 
-    // زر إزالة من المفضلة
+   
     div.querySelector(".remove-fav").addEventListener("click", () => {
       removeFavorite(card.id);
       displayFavorites(); 
     });
 
-    // زر إضافة للسلة (Cart)
+
     div.querySelector(".add-cart-fav").addEventListener("click", () => {
-      addToCart(card);   // دالة addToCart من Market / panier
+      addToCart(card);   
       showNotification(`${card.name} تمت إضافتها إلى السلة!`, "green");
     });
 
@@ -258,10 +258,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-// ======================
 // Panier (Cart) Logic
-// ======================
 
 // Récupérer le panier depuis le localStorage
 function getCart() {
@@ -399,9 +396,11 @@ function checkout() {
     showNotification("Votre panier est vide !", "pink");
     return;
   }
+  cart.forEach(card => addToMyDeck(card)); // ✅ ajoute les cartes achetées au deck
   clearCart();
   showNotification("Merci pour votre achat !", "green");
 }
+
 
 // Initialisation
 window.addEventListener("DOMContentLoaded", () => {
@@ -417,4 +416,112 @@ window.addEventListener("DOMContentLoaded", () => {
       displayCartItems();
     });
   });
+});
+// =============================
+// 🃏 LOGIQUE PAGE "MY DECK"
+// =============================
+
+// 🔹 Récupérer le deck depuis le localStorage
+function getMyDeck() {
+  return JSON.parse(localStorage.getItem("myDeck")) || [];
+}
+
+// 🔹 Sauvegarder le deck dans le localStorage
+function saveMyDeck(deck) {
+  localStorage.setItem("myDeck", JSON.stringify(deck));
+}
+
+// 🔹 Ajouter une carte au deck après achat
+// Appelée automatiquement dans checkout()
+function addToMyDeck(card) {
+  let deck = getMyDeck();
+  if (!deck.find(c => c.id === card.id)) {
+    deck.push(card);
+    saveMyDeck(deck);
+  }
+}
+
+// 🔹 Afficher les cartes de la collection
+function displayMyDeck(list = getMyDeck()) {
+  const deckContainer = document.getElementById("deck-container");
+  const emptyMsg = document.getElementById("empty-deck");
+
+  if (!deckContainer) return;
+
+  deckContainer.innerHTML = "";
+  if (list.length === 0) {
+    emptyMsg?.classList.remove("hidden");
+    return;
+  } else {
+    emptyMsg?.classList.add("hidden");
+  }
+
+  list.forEach(card => {
+    const div = document.createElement("div");
+    div.className = `relative w-80 h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white hover:scale-105 transition-transform bg-transparent backdrop-blur-md`;
+
+    div.innerHTML = `
+      <img src="${card.image}" alt="${card.name}" class="w-full h-full object-cover">
+      <div class="absolute bottom-0 w-full bg-gradient-to-t from-purple-900/90 via-purple-900/50 to-transparent p-4 text-white">
+        <h2 class="text-2xl font-bold text-yellow-400 mb-1">${card.name}</h2>
+        <p class="text-sm mb-1">Rareté : <span class="font-semibold">${card.rarity}</span></p>
+        <p class="text-gray-300 text-xs mb-2">${card.description}</p>
+        <p class="text-lg font-bold mb-2">${card.price}</p>
+        <div class="flex gap-2">
+          <button class="bg-red-500 text-white px-3 py-1 rounded-lg font-bold hover:bg-red-600 text-xs remove-deck">Revendre</button>
+        </div>
+      </div>
+    `;
+
+    // Bouton revendre (optionnel)
+    div.querySelector(".remove-deck").addEventListener("click", () => {
+      removeFromMyDeck(card.id);
+      showNotification(`${card.name} a été retirée du deck.`, "pink");
+      displayMyDeck();
+    });
+
+    deckContainer.appendChild(div);
+  });
+}
+
+// 🔹 Retirer une carte du deck
+function removeFromMyDeck(cardId) {
+  let deck = getMyDeck();
+  deck = deck.filter(c => c.id !== cardId);
+  saveMyDeck(deck);
+}
+
+// 🔹 Initialisation : afficher le deck au chargement
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.location.pathname.includes("my_deck.html")) {
+    displayMyDeck();
+  }
+});
+// ðŸ"¹ Filtrage du deck par rareté
+function filterMyDeck() {
+  if (!window.location.pathname.includes("my_deck.html")) return;
+  
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const rarity = btn.dataset.rarity;
+      
+      // Mise à jour visuelle des boutons
+      filterButtons.forEach(b => b.classList.remove("ring-4", "ring-yellow-300"));
+      btn.classList.add("ring-4", "ring-yellow-300");
+      
+      // Filtrer le deck
+      const deck = getMyDeck();
+      const filteredDeck = rarity ? deck.filter(c => c.rarity === rarity) : deck;
+      displayMyDeck(filteredDeck);
+    });
+  });
+}
+
+// ðŸ"¹ Initialisation : afficher le deck au chargement
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.location.pathname.includes("my_deck.html")) {
+    displayMyDeck();
+    filterMyDeck(); // ✅ Activer le filtrage
+  }
 });
