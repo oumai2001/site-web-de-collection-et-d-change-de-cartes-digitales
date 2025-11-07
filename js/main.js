@@ -446,3 +446,4 @@ window.addEventListener("DOMContentLoaded", () => {
     paginate();
   }
 });
+
