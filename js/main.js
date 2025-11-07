@@ -436,7 +436,7 @@ mobileToggle?.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", () => {
   updateCartCount();
   
-  if (window.location.pathname.includes("favorites.html")) {
+  if (window.location.pathname.includes("Favorites.html")) {
     displayFavorites();
   } else if (window.location.pathname.includes("my_deck.html")) {
     displayMyDeck();
